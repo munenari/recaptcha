@@ -3,7 +3,7 @@ package recaptcha
 import "testing"
 
 func TestVerify(t *testing.T) {
-	req := ReCaptchaRequest{
+	req := Request{
 		Secret:   "dummy-secret",
 		Response: "dummy-response",
 		RemoteIP: "127.0.0.1",

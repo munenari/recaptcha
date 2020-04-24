@@ -4,7 +4,7 @@
 ## usage
 
 ```go
-req := ReCaptchaRequest{
+req := recaptcha.Request{
 	Secret:   "dummy-secret",
 	Response: "dummy-response",
 	RemoteIP: "127.0.0.1",

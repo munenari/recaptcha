@@ -14,8 +14,8 @@ var client = &http.Client{
 }
 
 type (
-	// ReCaptchaResponse struct
-	ReCaptchaResponse struct {
+	// Response struct
+	Response struct {
 		Success     bool      `json:"success"`
 		ChallengeTS time.Time `json:"challenge_ts"`
 		Hostname    string    `json:"hostname"`
@@ -23,8 +23,8 @@ type (
 		ErrorCodes  []string  `json:"error-codes"`
 	}
 
-	// ReCaptchaRequest struct
-	ReCaptchaRequest struct {
+	// Request struct
+	Request struct {
 		Secret   string `_form:"secret"`
 		Response string `_form:"response"`
 		RemoteIP string `_form:"remoteip"`
@@ -32,19 +32,19 @@ type (
 )
 
 // Verify recaptcha token
-func (x *ReCaptchaRequest) Verify() (*ReCaptchaResponse, error) {
+func (x *Request) Verify() (*Response, error) {
 	resp, err := client.PostForm(recaptchaEndpoint, x.Values())
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	res := new(ReCaptchaResponse)
+	res := new(Response)
 	err = json.NewDecoder(resp.Body).Decode(res)
 	return res, err
 }
 
 // Values returns url.Values for recaptcha struct
-func (x *ReCaptchaRequest) Values() url.Values {
+func (x *Request) Values() url.Values {
 	v := url.Values{}
 	v.Add("secret", x.Secret)
 	v.Add("response", x.Response)
