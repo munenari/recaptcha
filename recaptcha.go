@@ -16,6 +16,9 @@ type (
 		Client *http.Client
 		Secret string
 	}
+	RecaptchaInterface interface {
+		Verify(ctx context.Context, response, remoteIP string) (*Response, error)
+	}
 	Response struct {
 		Success     bool      `json:"success"`
 		Score       float64   `json:"score"`
