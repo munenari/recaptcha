@@ -1,14 +1,13 @@
 package recaptcha
 
-import "testing"
+import (
+	"net/http"
+	"testing"
+)
 
 func TestVerify(t *testing.T) {
-	req := Request{
-		Secret:   "dummy-secret",
-		Response: "dummy-response",
-		RemoteIP: "127.0.0.1",
-	}
-	res, err := req.Verify()
+	c := RecaptchaClient{Client: http.DefaultClient, Secret: "dummy-secret"}
+	res, err := c.Verify(t.Context(), "dummy-response", "127.0.0.1")
 	if err != nil {
 		t.Fatal(err)
 	}
